@@ -1,0 +1,43 @@
+service experimental.audio.microphone
+
+stdver 0.10
+
+import com.robotraconteur.device.clock
+import com.robotraconteur.datetime
+import com.robotraconteur.device
+
+using com.robotraconteur.device.DeviceInfo
+using com.robotraconteur.device.Device
+using com.robotraconteur.device.clock.DeviceClock
+using com.robotraconteur.device.clock.DeviceTime
+using com.robotraconteur.datetime.TimeSpec3
+
+struct AudioFrame
+    field TimeSpec3 ts
+    field uint64 seqno
+    field uint32 sample_rate
+    field single[]{list} audio_data
+end
+
+struct MicrophoneInfo
+    field DeviceInfo device_info
+    field uint32 sample_rate
+    field uint32 channels
+end
+
+object Microphone
+    implements Device
+    implements DeviceClock
+
+    property DeviceInfo device_info [readonly,nolock]
+    property MicrophoneInfo microphone_info [readonly,nolock]
+
+    function AudioFrame{list} capture_microphone(double duration_seconds)
+    pipe AudioFrame microphone_stream [readonly]
+
+    function varvalue getf_param(string param_name)
+    function void setf_param(string param_name, varvalue value)
+    event param_changed(string param_name)
+
+    wire DeviceTime device_clock_now [readonly,nolock]
+end
