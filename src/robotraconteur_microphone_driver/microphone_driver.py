@@ -129,7 +129,7 @@ def main():
     microphone._open_microphone(args.device, args.samplerate, args.channels)
 
     try:
-        with RR.ServerNodeSetup("experimental.flir_thermal_camera",60828):
+        with RR.ServerNodeSetup("experimental.microphone",60828):
 
             service_ctx = RRN.RegisterService("microphone","experimental.audio.microphone.Microphone",microphone)
             # service_ctx.SetServiceAttributes(microphone_attributes)
