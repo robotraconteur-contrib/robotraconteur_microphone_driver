@@ -68,7 +68,7 @@ class MicrophoneImpl:
             a.ts = ts
             a.seqno = self._seqno
             a.sample_rate = int(self._samplerate)
-            a.audio_data = [np.copy(indata)]
+            a.audio_data = [np.copy(indata).flatten()]
 
             if self._wires_init:
                 self.microphone_stream.AsyncSendPacket(a, lambda: None)
