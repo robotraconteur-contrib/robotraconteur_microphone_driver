@@ -37,7 +37,7 @@ class MicrophoneImpl:
 
     def RRServiceObjectInit(self, ctx, service_path):
         
-        self.microphone_stream.MaxBacklog = 2
+        # self.microphone_stream.MaxBacklog = 2
         
         self.device_clock_now.PeekInValueCallback = lambda ep: self._datetime_util.FillDeviceTime(self._camera_info.device_info,self._seqno)
         self._wires_init = True
