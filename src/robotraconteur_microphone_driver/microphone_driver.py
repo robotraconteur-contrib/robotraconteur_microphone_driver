@@ -13,6 +13,7 @@ import traceback
 import threading
 import queue
 import numpy as np
+import drekar_launch_process
 
 # Parser arguments taken from https://python-sounddevice.readthedocs.io/en/0.4.6/examples.html
 def int_or_str(text):
@@ -118,7 +119,6 @@ def main():
     parser.add_argument('-d', '--device', type=int_or_str, help='input device (numeric ID or substring)')
     parser.add_argument('-r', '--samplerate', type=int, default=44000, help='sampling rate')
     parser.add_argument('-c', '--channels', type=int, default=1, help='number of input channels')
-    parser.add_argument("--wait-signal",action='store_const',const=True,default=False, help="wait for SIGTERM orSIGINT (Linux only)")
     args, _ = parser.parse_known_args(remaining)
 
     RRC.RegisterStdRobDefServiceTypes(RRN)
@@ -134,13 +134,8 @@ def main():
             service_ctx = RRN.RegisterService("microphone","experimental.audio.microphone.Microphone",microphone)
             # service_ctx.SetServiceAttributes(microphone_attributes)
 
-            if args.wait_signal:  
-                #Wait for shutdown signal if running in service mode          
-                print("Press Ctrl-C to quit...")
-                import signal
-                signal.sigwait([signal.SIGTERM,signal.SIGINT])
-            else:            
-                input("Server started, press enter to quit...")
+            print("press ctrl+c to quit")
+            drekar_launch_process.wait_exit()
             
             microphone._close()
             time.sleep(0.1)
