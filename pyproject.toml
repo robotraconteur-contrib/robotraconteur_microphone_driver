@@ -1,7 +1,7 @@
 [project]
 
 name= "robotraconteur-microphone-driver"
-version = "0.0.1"
+version = "0.1.0"
 description = "Robot Raconteur driver for standard microphones"
 requires-python = ">=3.6"
 license = {file = "LICENSE.txt"}
@@ -25,3 +25,6 @@ requires = [
 
 [project.scripts]
 robotraconteur-microphone-driver = "robotraconteur_microphone_driver.microphone_driver:main"
+
+[tool.setuptools.package-data]
+"robotraconteur_microphone_driver" = ["*.robdef"]
