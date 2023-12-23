@@ -13,7 +13,8 @@ dependencies = [
     'RobotRaconteur',
     'RobotRaconteurCompanion',
     'numpy',
-    'sounddevice'
+    'sounddevice',
+    'drekar-launch-process'
 ]
 readme = "README.md"
 
