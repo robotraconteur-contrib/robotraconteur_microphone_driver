@@ -37,7 +37,7 @@ class MicrophoneImpl:
 
     def RRServiceObjectInit(self, ctx, service_path):
         
-        self.microphone_stream.MaxBacklog = 2
+        # self.microphone_stream.MaxBacklog = 2
         
         self.device_clock_now.PeekInValueCallback = lambda ep: self._datetime_util.FillDeviceTime(self._camera_info.device_info,self._seqno)
         self._wires_init = True
@@ -68,7 +68,7 @@ class MicrophoneImpl:
             a.ts = ts
             a.seqno = self._seqno
             a.sample_rate = int(self._samplerate)
-            a.audio_data = [np.copy(indata)]
+            a.audio_data = [np.copy(indata).flatten()]
 
             if self._wires_init:
                 self.microphone_stream.AsyncSendPacket(a, lambda: None)
@@ -129,7 +129,7 @@ def main():
     microphone._open_microphone(args.device, args.samplerate, args.channels)
 
     try:
-        with RR.ServerNodeSetup("experimental.flir_thermal_camera",60828):
+        with RR.ServerNodeSetup("experimental.microphone",60828):
 
             service_ctx = RRN.RegisterService("microphone","experimental.audio.microphone.Microphone",microphone)
             # service_ctx.SetServiceAttributes(microphone_attributes)
