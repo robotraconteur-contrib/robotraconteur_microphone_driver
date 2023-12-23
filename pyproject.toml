@@ -4,7 +4,7 @@ name= "robotraconteur-microphone-driver"
 version = "0.0.1"
 description = "Robot Raconteur driver for standard microphones"
 requires-python = ">=3.6"
-license = {file = "LICENSE.txt"}
+license = {text = "Apache-2.0"}
 authors = [
     {name = "John Wason", email = "wason@wasontech.com"}
 ]
@@ -15,6 +15,11 @@ dependencies = [
     'numpy',
     'sounddevice'
 ]
+readme = "README.md"
+
+[project.urls]
+homepage = "https://github.com/robotraconteur-contrib/robotraconteur_microphone_driver"
+repository = "https://github.com/robotraconteur-contrib/robotraconteur_microphone_driver"
 
 [build-system]
 build-backend = 'setuptools.build_meta'
